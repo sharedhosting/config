@@ -1,0 +1,25 @@
+{
+    "servers": [
+        {
+            "server": "::",
+            "server_port": 15802,
+            "password": "A9cF9aFFbB11c72c49fC10bDF0f75eeD",
+            "method": "aes-128-gcm",
+            "mode": "tcp_and_udp"
+        },
+        {
+            "server": "::",
+            "server_port": 15803,
+            "password": "A9cF9aFFbB11c72c49fC10bDF0f75eeD",
+            "method": "chacha20-ietf-poly1305",
+            "mode": "tcp_and_udp"
+        },
+        {
+            "server": "::",
+            "server_port": 44433,
+            "password": "A9cF9aFFbB11c72c49fC10bDF0f75eeD",
+            "method": "aes-128-gcm",
+            "mode": "tcp_and_udp"
+        }
+    ]
+}
