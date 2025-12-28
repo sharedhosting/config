@@ -1,0 +1,20 @@
+server {
+        listen 15810 default_server;
+        listen [::]:15810 default_server;
+        root  /var/www/html;
+
+        # fancyindex 
+        location  /_theme/ {
+        alias  /etc/nginx/_theme/;
+        }
+        location  / {
+        fancyindex on;
+        fancyindex_exact_size off;
+        fancyindex_localtime on;
+        fancyindex_header "/_theme/header.html";
+        fancyindex_footer "/_theme/footer.html";
+        fancyindex_name_length 255;
+
+        }
+
+}
