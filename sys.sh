@@ -1,17 +1,15 @@
 #!/bin/bash
 
-# --- 可配置变量 ---
 # SSH公钥 (请将你的公钥粘贴在这里)
-KEY=""
+KEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHU4I+uqyj6l254xb2LjyO/STXpf2m0lraFGf/8MPFUq"
 
 # 要安装的应用程序 (用空格分隔)
-APP="nano screen zip"
+APP="screen apt-transport-https ca-certificates zstd nano curl zip unzip mc"
 
 # .my_aliases 文件的URL
-ALIASES_URL=""
+ALIASES_URL="https://raw.githubusercontent.com/petcat/my.config/refs/heads/master/ssh/.my_aliases"
 
 # --- 脚本主体 ---
-
 set -e  # 遇到错误时退出
 
 echo "开始VPS初始化..."
