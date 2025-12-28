@@ -162,27 +162,37 @@ if command -v rsyslogd >/dev/null 2>&1 && [ -f "$RSYSLOG_CONF" ]; then
 fi
 
 # 7c. 配置 logrotate 以更积极地管理 /var/log
+# 不使用通配符，而是创建一个更通用的配置，或者只针对常见的、未被其他配置文件管理的日志
 LOGROTATE_DIR="/etc/logrotate.d"
 LOGROTATE_VPS_FILE="$LOGROTATE_DIR/vps_optimization"
 
-# 创建一个自定义的logrotate配置文件
+# 创建一个自定义的logrotate配置文件，但不使用通配符，以避免冲突
+# 这里我们只配置一些常见的、可能需要更严格限制的日志
 cat > "$LOGROTATE_VPS_FILE" << 'EOF'
-# VPS优化: 限制常用日志文件的大小和数量
-/var/log/*.log {
-    daily
-    missingok
-    rotate 3
-    compress
-    delaycompress
-    notifempty
-    maxsize 10M
-    copytruncate
-}
+# VPS优化: 限制特定日志文件的大小和数量
+# 注意：不使用通配符，以避免与现有配置冲突
+# 这里可以为特定日志添加规则，例如：
+# /var/log/exim4/*.log {
+#     daily
+#     missingok
+#     rotate 2
+#     compress
+#     delaycompress
+#     notifempty
+#     maxsize 5M
+#     copytruncate
+# }
+# 或者，创建一个更通用的规则，但排除已知的冲突文件
+# 对于大多数标准日志，我们依赖系统默认配置，但可以在此处覆盖特定行为
+# 如果需要对大量日志进行统一管理，可以考虑使用 logrotate 的 include 指令
+# 但最安全的方式是针对具体文件进行配置
 EOF
 
-echo "已创建 logrotate 配置: $LOGROTATE_VPS_FILE"
+echo "已创建 logrotate 配置: $LOGROTATE_VPS_FILE (内容为空，以避免冲突)"
 
 # 7d. 立即执行一次 logrotate 以应用新规则并清理现有日志
+# 在执行前先测试配置，避免错误
+logrotate -d /etc/logrotate.conf 2>&1 | grep -i error || echo "logrotate 配置测试通过或无错误。"
 logrotate -f /etc/logrotate.conf
 
 echo "日志限制配置完成。"
