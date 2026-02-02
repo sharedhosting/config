@@ -1,0 +1,7 @@
+[Unit]
+Description=Ikuuu Daily Checkin Service
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/opt/ikuuu/ikuuu.sh
