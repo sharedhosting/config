@@ -7,9 +7,8 @@ auto ens3
 iface ens3 inet dhcp
 
 iface ens3 inet6 static
-    address 2a0e:df40:3:16::2/64
-    address 2a0e:df40:3:16::a/64
-    address 2a0e:df40:3:16::16/64
-    address 2a0e:df40:3:16::aff/64
+    address 2a0e:df40:3:16::2
+    netmask 64
     gateway 2a0e:df40:3::1
-    accept_ra 0
+    post-up /sbin/ip -6 addr add 2a0e:df40:3:16::a/64 dev ens3
+    post-up /sbin/ip -6 addr add 2a0e:df40:3:16::16/64 dev ens3
