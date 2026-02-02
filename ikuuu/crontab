@@ -1,0 +1,1 @@
+0 1 * * * RANDOM_DELAY=$((RANDOM % 1800)); sleep $RANDOM_DELAY && /opt/ikuuu/ikuuu.sh 
